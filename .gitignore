@@ -26,7 +26,6 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-gesture_recognizer.task
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -132,3 +131,7 @@ dmypy.json
 
 # bat
 *.bat
+
+hand_landmarker.task
+my_venv
+.venv

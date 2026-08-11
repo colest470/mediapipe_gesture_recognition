@@ -38,6 +38,36 @@ python demo.py
 
 Press `q` in the camera window to exit.
 
+## Pyenv (recommended)
+
+If you use `pyenv` to manage Python versions, this project is intended to run on Python 3.10.
+A helper script is included to install the correct Python version (via `pyenv`), create a `pyenv` virtualenv
+(if `pyenv-virtualenv` is available), and install dependencies.
+
+Quick steps:
+
+```bash
+# From the repository root
+./scripts/setup_pyenv.sh
+```
+
+This will:
+- ensure Python 3.10.12 is installed via `pyenv` (non-destructive)
+- create a named pyenv virtualenv `mediapipe_gesture_recognition` if `pyenv-virtualenv` is available
+- install `requirements.txt` into that environment
+
+You can also opt to set the local Python version manually by running:
+
+```bash
+pyenv install -s 3.10.12
+pyenv local 3.10.12
+python -m venv my_venv   # optional fallback
+source my_venv/bin/activate
+pip install -r requirements.txt
+```
+
+Note: A `.python-version` file is included in the repo to suggest `3.10.12` for `pyenv local`.
+
 ## Files
 - `demo.py` — Live camera demo using MediaPipe GestureRecognizer in
   LIVE_STREAM mode.

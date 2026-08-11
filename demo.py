@@ -76,7 +76,7 @@ def main():
     with GestureRecognizer.create_from_options(options) as recognizer:
         
         # Open the default camera
-        cap = cv2.VideoCapture(1)
+        cap = cv2.VideoCapture(0)
         if not cap.isOpened():
             print('Error: could not open camera')
             return
