@@ -1,6 +1,29 @@
+import importlib
 import mediapipe as mp
 from . import constants
 import pynput as pyn
+
+# Some installations of MediaPipe (or different packaging) don't expose
+# `mp.solutions` on the top-level package. Try to use the attribute when
+# available, otherwise import a likely submodule and attach it so the rest
+# of the code can assume `mp.solutions` exists.
+try:
+    _solutions = mp.solutions
+except Exception:
+    _solutions = None
+
+if _solutions is None:
+    for candidate in ("mediapipe.python.solutions", "mediapipe.solutions"):
+        try:
+            _solutions = importlib.import_module(candidate)
+            # Attach to the top-level module for downstream code that expects it
+            setattr(mp, "solutions", _solutions)
+            break
+        except Exception:
+            _solutions = None
+
+if _solutions is None:
+    raise ImportError("cannot find MediaPipe 'solutions' module; please run with the project venv or install a MediaPipe package that provides 'solutions'.")
 
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils

@@ -70,14 +70,17 @@ def main():
                             setup.set_key(pyn.keyboard.Key.right, True)
                             setup.set_key(pyn.keyboard.Key.left, False)
                             steer_state_text = "RIGHT"
+                            print(f"Steering left")
                         elif angle < -DEAD_ZONE_DEG:
                             setup.set_key(pyn.keyboard.Key.left, True)
                             setup.set_key(pyn.keyboard.Key.right, False)
                             steer_state_text = "LEFT"
+                            print(f"Steering right")
                         else:
                             setup.set_key(pyn.keyboard.Key.left, False)
                             setup.set_key(pyn.keyboard.Key.right, False)
                             steer_state_text = "CENTER"
+                            print(f"Steering right")
 
                         wheel_color = constants.COL_GREEN if steer_state_text == "CENTER" else constants.COL_AMBER
                         wheel.draw_wheel_on_hand(frame, lm, angle, w, h, wheel_color)

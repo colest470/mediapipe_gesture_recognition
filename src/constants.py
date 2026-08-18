@@ -22,7 +22,7 @@ Press Q to quit, S to toggle hand swap.
 
 import numpy as np
 import mediapipe as mp
-from pynput.keyboard import Controller, Key
+from pynput.keyboard import Controller as KeyboardController
 
 CAMERA_INDEX = 0
 FLIP_CAMERA = True
@@ -43,14 +43,14 @@ SENSITIVITY_STEP = 2         # degrees changed per +/- key press
 STEER_SMOOTHING = 0.4        # 0 = no smoothing, closer to 1 = smoother/laggier
 
 # Neon theme colours (BGR)
-COL_CYAN = (255, 220, 40)
-COL_MAGENTA = (200, 40, 255)
-COL_GREEN = (90, 255, 120)
-COL_RED = (60, 60, 255)
-COL_AMBER = (0, 190, 255)
-COL_YELLOW = (0, 230, 255)
-COL_TEXT = (235, 235, 235)
-COL_DIM = (110, 110, 110)
+COL_CYAN = (0, 0, 0)
+COL_MAGENTA =  COL_CYAN #(200, 40, 255)
+COL_GREEN = COL_CYAN #(90, 0, 0)
+COL_RED = COL_CYAN #(60, 60, 255)
+COL_AMBER = COL_CYAN #(0, 190, 255)
+COL_YELLOW = COL_CYAN #(0, 230, 255)
+COL_TEXT = COL_CYAN #(235, 235, 235)
+COL_DIM = COL_CYAN #(110, 110, 110)
 
 MAX_SPEED = 220          # purely cosmetic speedometer top value
 SPEED_ACCEL_RATE = 90    # units/sec while accelerating

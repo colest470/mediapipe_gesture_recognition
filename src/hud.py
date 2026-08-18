@@ -52,44 +52,45 @@ def status_pill(frame, x, y, label, value, color, active):
     dot_color = color if active else (80, 80, 80)
     cv2.circle(frame, (x, y), 7, dot_color, thickness=-1)
     cv2.circle(frame, (x, y), 7, (255, 255, 255), thickness=1)
-    cv2.putText(frame, label, (x + 16, y + 5), cv2.FONT_HERSHEY_SIMPLEX, 0.55, constants.COL_TEXT, 1, cv2.LINE_AA)
-    (tw, _), _ = cv2.getTextSize(value, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)
-    cv2.putText(frame, value, (x + 210 - tw, y + 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, dot_color, 2, cv2.LINE_AA)
+    cv2.putText(frame, label, (x + 16, y + 5), cv2.FONT_HERSHEY_PLAIN, 0.55, constants.COL_TEXT, 1, cv2.LINE_AA)
+    (tw, _), _ = cv2.getTextSize(value, cv2.FONT_HERSHEY_PLAIN, 0.6, 2)
+    cv2.putText(frame, value, (x + 210 - tw, y + 5), cv2.FONT_HERSHEY_PLAIN, 0.6, dot_color, 2, cv2.LINE_AA)
 
 
 def draw_speedometer(frame, cx, cy, radius, speed, max_speed, color):
-    """Big semicircular speedometer dial, bottom-center of the window."""
-    cv2.ellipse(frame, (cx, cy), (radius, radius), 0, 180, 360, (55, 55, 55), 14)
-    frac = min(1.0, speed / max_speed)
-    end_angle = 180 + int(180 * frac)
-    dial_color = color if frac < 0.85 else constants.COL_RED
-    cv2.ellipse(frame, (cx, cy), (radius, radius), 0, 180, end_angle, dial_color, 14)
-
-    # tick marks
-    for i in range(0, 11):
-        a = math.radians(180 + i * 18)
-        x1 = int(cx + (radius - 20) * math.cos(a))
-        y1 = int(cy + (radius - 20) * math.sin(a))
-        x2 = int(cx + (radius - 5) * math.cos(a))
-        y2 = int(cy + (radius - 5) * math.sin(a))
-        cv2.line(frame, (x1, y1), (x2, y2), (150, 150, 150), 2)
-
-    # needle
-    needle_angle = math.radians(180 + 180 * frac)
-    nx = int(cx + (radius - 25) * math.cos(needle_angle))
-    ny = int(cy + (radius - 25) * math.sin(needle_angle))
-    cv2.line(frame, (cx, cy), (nx, ny), constants.COL_YELLOW, 3)
-    cv2.circle(frame, (cx, cy), 8, constants.COL_YELLOW, -1)
-
-    glow_text(frame, f"{int(speed)}", (cx - 38, cy - 18), 1.1, (255, 255, 255), 2, glow=4)
-    cv2.putText(frame, "KM/H", (cx - 26, cy + 4), cv2.FONT_HERSHEY_SIMPLEX, 0.45, constants.COL_DIM, 1, cv2.LINE_AA)
+    # """Big semicircular speedometer dial, bottom-center of the window."""
+    # cv2.ellipse(frame, (cx, cy), (radius, radius), 0, 180, 360, (55, 55, 55), 14)
+    # frac = min(1.0, speed / max_speed)
+    # end_angle = 180 + int(180 * frac)
+    # dial_color = color if frac < 0.85 else constants.COL_RED
+    # cv2.ellipse(frame, (cx, cy), (radius, radius), 0, 180, end_angle, dial_color, 14)
+    #
+    # # tick marks
+    # for i in range(0, 11):
+    #     a = math.radians(180 + i * 18)
+    #     x1 = int(cx + (radius - 20) * math.cos(a))
+    #     y1 = int(cy + (radius - 20) * math.sin(a))
+    #     x2 = int(cx + (radius - 5) * math.cos(a))
+    #     y2 = int(cy + (radius - 5) * math.sin(a))
+    #     cv2.line(frame, (x1, y1), (x2, y2), (150, 150, 150), 2)
+    #
+    # # needle
+    # needle_angle = math.radians(180 + 180 * frac)
+    # nx = int(cx + (radius - 25) * math.cos(needle_angle))
+    # ny = int(cy + (radius - 25) * math.sin(needle_angle))
+    # cv2.line(frame, (cx, cy), (nx, ny), constants.COL_YELLOW, 3)
+    # cv2.circle(frame, (cx, cy), 8, constants.COL_YELLOW, -1)
+    #
+    # glow_text(frame, f"{int(speed)}", (cx - 38, cy - 18), 1.1, (255, 255, 255), 2, glow=4)
+    # cv2.putText(frame, "KM/H", (cx - 26, cy + 4), cv2.FONT_HERSHEY_SIMPLEX, 0.45, constants.COL_DIM, 1, cv2.LINE_AA)
+    pass
 
 
 def draw_gear_indicator(frame, x, y, gear, color):
     rounded_panel(frame, x - 35, y - 35, 70, 70, color=(15, 15, 15), alpha=0.6, border=color)
-    (tw, th), _ = cv2.getTextSize(gear, cv2.FONT_HERSHEY_DUPLEX, 1.1, 3)
+    (tw, th), _ = cv2.getTextSize(gear, cv2.FONT_HERSHEY_PLAIN, 1.1, 3)
     cv2.putText(frame, gear, (x - tw // 2, y + th // 2),
-                cv2.FONT_HERSHEY_DUPLEX, 1.1, color, 3, cv2.LINE_AA)
+                cv2.FONT_HERSHEY_PLAIN, 1.1, color, 3, cv2.LINE_AA)
 
 
 def draw_dashboard(frame, steer_state, gas_state, angle, swap_on, fps, speed, t,
@@ -109,7 +110,7 @@ def draw_dashboard(frame, steer_state, gas_state, angle, swap_on, fps, speed, t,
 
     # left status panel
     rounded_panel(frame, 14, 60, 260, 156, color=(10, 10, 10), alpha=0.55, border=constants.COL_CYAN)
-    cv2.putText(frame, "STATUS", (28, 82), cv2.FONT_HERSHEY_DUPLEX, 0.55, constants.COL_CYAN, 1, cv2.LINE_AA)
+    cv2.putText(frame, "STATUS", (28, 82), cv2.FONT_HERSHEY_PLAIN, 0.55, constants.COL_CYAN, 1, cv2.LINE_AA)
 
     steer_color = constants.COL_GREEN if steer_state == "CENTER" else constants.COL_AMBER if steer_state != "NO HAND" else constants.COL_RED
     gas_color = constants.COL_GREEN if gas_state.startswith("ACCEL") else constants.COL_RED if gas_state.startswith("BRAKE") else constants.COL_DIM
@@ -120,7 +121,7 @@ def draw_dashboard(frame, steer_state, gas_state, angle, swap_on, fps, speed, t,
 
     mins, secs = divmod(int(elapsed), 60)
     cv2.putText(frame, f"SESSION {mins:02d}:{secs:02d}", (34, 194),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.5, constants.COL_DIM, 1, cv2.LINE_AA)
+                cv2.FONT_HERSHEY_PLAIN, 0.5, constants.COL_DIM, 1, cv2.LINE_AA)
 
     # top-right decorative steering angle gauge
     gauge_cx, gauge_cy = w - 80, 100
@@ -129,11 +130,11 @@ def draw_dashboard(frame, steer_state, gas_state, angle, swap_on, fps, speed, t,
     end_angle = 135 + int(270 * frac)
     cv2.ellipse(frame, (gauge_cx, gauge_cy), (55, 55), 0, 135, end_angle, constants.COL_CYAN, 10)
     cv2.putText(frame, f"{int(abs(angle))}", (gauge_cx - 20, gauge_cy + 8),
-                cv2.FONT_HERSHEY_DUPLEX, 0.8, constants.COL_TEXT, 2, cv2.LINE_AA)
-    cv2.putText(frame, "DEG", (gauge_cx - 16, gauge_cy + 28), cv2.FONT_HERSHEY_SIMPLEX, 0.4, constants.COL_DIM, 1, cv2.LINE_AA)
+                cv2.FONT_HERSHEY_PLAIN, 0.8, constants.COL_TEXT, 2, cv2.LINE_AA)
+    cv2.putText(frame, "DEG", (gauge_cx - 16, gauge_cy + 28), cv2.FONT_HERSHEY_PLAIN, 0.4, constants.COL_DIM, 1, cv2.LINE_AA)
 
-    # bottom-center speedometer
-    draw_speedometer(frame, w // 2, h - 15, 95, speed, constants.MAX_SPEED, constants.COL_CYAN)
+    # bottom-center speedometer (removed)
+    # draw_speedometer(frame, w // 2, h - 15, 95, speed, constants.MAX_SPEED, constants.COL_CYAN)
 
     # gear indicator next to speedometer
     gear = "D" if gas_state.startswith("ACCEL") else "R" if gas_state.startswith("BRAKE") else "N"
@@ -142,6 +143,7 @@ def draw_dashboard(frame, steer_state, gas_state, angle, swap_on, fps, speed, t,
 
     # bottom-left FPS + hints
     cv2.putText(frame, f"FPS {fps:.0f}  |  DEADZONE {dead_zone}deg", (14, h - 15),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.5, constants.COL_DIM, 1, cv2.LINE_AA)
+                cv2.FONT_HERSHEY_PLAIN, 0.5, constants.COL_DIM, 1, cv2.LINE_AA)
     cv2.putText(frame, "Q QUIT  S SWAP  C SNAPSHOT  +/- SENSITIVITY", (14, h - 34),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.45, constants.COL_DIM, 1, cv2.LINE_AA)
+                cv2.FONT_HERSHEY_PLAIN, 0.45, constants.COL_DIM, 1, cv2.LINE_AA)
+
