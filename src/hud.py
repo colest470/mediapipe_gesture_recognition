@@ -106,7 +106,7 @@ def draw_dashboard(frame, steer_state, gas_state, angle, swap_on, fps, speed, t,
 
     # top title bar
     rounded_panel(frame, w // 2 - 190, 8, 380, 40, color=(10, 10, 10), alpha=0.5, border=title_color)
-    glow_text(frame, "VIRTUAL RACING HUD", (w // 2 - 172, 36), 0.75, title_color, 2, glow=4)
+    # glow_text(frame, "VIRTUAL RACING HUD", (w // 2 - 172, 36), 0.75, title_color, 2, glow=4)
 
     # left status panel
     rounded_panel(frame, 14, 60, 260, 156, color=(10, 10, 10), alpha=0.55, border=constants.COL_CYAN)
@@ -131,7 +131,7 @@ def draw_dashboard(frame, steer_state, gas_state, angle, swap_on, fps, speed, t,
     cv2.ellipse(frame, (gauge_cx, gauge_cy), (55, 55), 0, 135, end_angle, constants.COL_CYAN, 10)
     cv2.putText(frame, f"{int(abs(angle))}", (gauge_cx - 20, gauge_cy + 8),
                 cv2.FONT_HERSHEY_PLAIN, 0.8, constants.COL_TEXT, 2, cv2.LINE_AA)
-    cv2.putText(frame, "DEG", (gauge_cx - 16, gauge_cy + 28), cv2.FONT_HERSHEY_PLAIN, 0.4, constants.COL_DIM, 1, cv2.LINE_AA)
+    # cv2.putText(frame, "DEG", (gauge_cx - 16, gauge_cy + 28), cv2.FONT_HERSHEY_PLAIN, 0.4, constants.COL_DIM, 1, cv2.LINE_AA)
 
     # bottom-center speedometer (removed)
     # draw_speedometer(frame, w // 2, h - 15, 95, speed, constants.MAX_SPEED, constants.COL_CYAN)

@@ -143,7 +143,7 @@ def main():
                 flash[:] = (255, 255, 255)
                 cv2.addWeighted(flash, 0.25, frame, 0.75, 0, frame)
 
-            cv2.imshow("Virtual Steering Wheel v3 - Gaming HUD", frame)
+            cv2.imshow("Gaming HUD", frame)
 
             key = cv2.waitKey(1) & 0xFF
             if key == ord("q"):
